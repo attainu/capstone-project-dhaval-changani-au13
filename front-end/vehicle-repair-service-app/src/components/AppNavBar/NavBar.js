@@ -19,7 +19,7 @@ import logo from '../../assets/images/Group 26331.svg';
 import { useHistory, useLocation } from "react-router-dom";
 import PATHS from "../../config/webPath";
 
-const withoutRoutes = ['/login', '/signup']
+const withoutRoutes = ['/user/login', '/user/signup', '/mechanic/signup', '/mechanic/login']
 
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
@@ -54,6 +54,11 @@ export default function PrimarySearchAppBar(props) {
     history.push(PATHS.HOME);
   };
 
+  const goToMechanicSection = (e) => {
+    e.preventDefault();
+    history.push(PATHS.MECHANIC_LOGIN);
+  }
+
   const menuId = "primary-search-account-menu";
 
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -85,7 +90,7 @@ export default function PrimarySearchAppBar(props) {
                 </Link>
               </Typography>
               <Typography className={classes.links}>
-                <Link href="#" color="inherit" style={{textDecoration: 'none'}}>
+                <Link href="#" color="inherit" onClick={goToMechanicSection} style={{textDecoration: 'none'}}>
                   Repair with Us
                 </Link>
               </Typography>

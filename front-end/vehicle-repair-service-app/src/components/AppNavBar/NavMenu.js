@@ -2,9 +2,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import PATHS from "../../config/webPath";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { useHistory } from "react-router";
-// import PATHS from "../../config/webPath";
+
 
 const NavMenu = (props) => {
   const { anchorEl, menuId, isMenuOpen, handleMenuClose } = props;
@@ -27,7 +27,7 @@ const NavMenu = (props) => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={onProfileClick}>Profile</MenuItem>
-      <MenuItem component={NavLink} to={PATHS.USER_LOGIN} onClick={handleMenuClose}>Login</MenuItem>
+      <MenuItem component={Link} to={PATHS.USER_LOGIN} onClick={handleMenuClose}>Login</MenuItem>
     </Menu>
   );
 };

@@ -16,11 +16,21 @@ const AuthStyles = makeStyles((theme) => ({
         backgroundImage: `url(${authImage})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundSize: "80% 80%",
+        backgroundSize: "70% 80%",
         minHeight: "80vh"
     },
     authSignup: {
         height: "95%",
+        width: "100%",
+        backgroundColor: "#222630",
+    },
+    mechanicAuthSignup: {
+        height: "80%",
+        width: "100%",
+        backgroundColor: "#222630",
+    },
+    mechanicAuthLogin: {
+        height: "80%",
         width: "100%",
         backgroundColor: "#222630",
     },
@@ -30,6 +40,12 @@ const AuthStyles = makeStyles((theme) => ({
         backgroundColor: "#222630",
     },
     userAuthForm: {
+        width: "25rem",
+        [theme.breakpoints.down("md")]: {
+            width: "19rem"
+        }
+    },
+    mechanicAuthForm: {
         width: "25rem",
         [theme.breakpoints.down("md")]: {
             width: "19rem"

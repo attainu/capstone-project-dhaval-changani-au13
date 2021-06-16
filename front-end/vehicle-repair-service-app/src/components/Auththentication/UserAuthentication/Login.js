@@ -30,7 +30,7 @@ const Login = () => {
                   {'Sign up'}
           </Link>
       </Typography>
-        <Grid container direction="column" justify="center" alignItems="center" className={classes.authSignin}>
+        <Grid container direction="column" justify="center" alignItems="center" className={classes.authSignin} spacing={0}>
             <form className={classes.userAuthForm}>
                 <Typography variant="h4" align="left" style={{color: "#ffffff"}}>Login to EasyRepair</Typography>
                 <Button variant="contained" color="default" className={classes.googleButton} fullWidth>
