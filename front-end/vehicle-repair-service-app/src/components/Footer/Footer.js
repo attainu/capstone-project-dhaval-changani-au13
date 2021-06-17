@@ -19,19 +19,19 @@ const Footer = () => {
           industry.
         </Typography>
       </Grid>
-      <Grid item sm={3}>
+      <Grid item xs={12} sm={3}>
       <Typography variant="h5" className={classes.aboutHead} align="left">Email</Typography>
         <Typography className={classes.aboutCaption} align="left">
           johndoe2@gmail.com
         </Typography>
       </Grid>
-      <Grid item sm={3}>
+      <Grid item xs={12} sm={3}>
       <Typography variant="h5" className={classes.aboutHead} align="left">Contact</Typography>
         <Typography className={classes.aboutCaption} align="left">
             +86 777333888
         </Typography>
       </Grid>
-      <Grid item sm={3}>
+      <Grid item xs={12} sm={3}>
             <Typography variant="h5" className={classes.aboutHead} align="left">Follow us on</Typography>
             <Grid item xs={12}>
                     <Grid container justify="flex-start">

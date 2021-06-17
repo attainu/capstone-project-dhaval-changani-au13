@@ -13,40 +13,49 @@ import DomainSlider from '../../components/Slider/Slider';
 import ServiceDesc from "../../components/ServiceDescription/ServiceDesc";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
+import { useState } from "react";
 // import GoogleMaps from "./GoogleMaps";
+
+const carTypes = [
+  {
+    value: "",
+    label: "Select your car type"
+  },
+  {
+    value: 'hyundai',
+    label: 'Hyundai'
+  },
+  {
+    value: 'toyota',
+    label: 'Toyota'
+  },
+  {
+    value: 'honda',
+    label: 'Honda'
+  },
+  {
+    value: 'volksvogen',
+    label: 'Volksvogen'
+  },
+  {
+    value: 'bmw',
+    label: 'BMW'
+  },
+  {
+    value: 'audi',
+    label: 'Audi'
+  }
+]
 
 const Home = () => {
   const classes = useStyles();
-  const carTypes = [
-    {
-      value: "",
-      label: "Select your car type"
-    },
-    {
-      value: 'hyundai',
-      label: 'Hyundai'
-    },
-    {
-      value: 'toyota',
-      label: 'Toyota'
-    },
-    {
-      value: 'honda',
-      label: 'Honda'
-    },
-    {
-      value: 'volksvogen',
-      label: 'Volksvogen'
-    },
-    {
-      value: 'bmw',
-      label: 'BMW'
-    },
-    {
-      value: 'audi',
-      label: 'Audi'
-    }
-  ]
+
+  const [carType, setCarType] = useState('');
+
+  const handleChange = (event) => {
+    setCarType(event.target.value);
+  }
+  
   return (
     <div>
       <div className={classes.root}>
@@ -84,13 +93,13 @@ const Home = () => {
                       Location
                     </InputLabel>
                     <TextField 
-                    variant="outlined" 
-                    id="location" 
-                    name="location" 
-                    fullWidth p={0.5}
-                    className={classes.textFieldRoot}
-                    InputProps={{
-                      classes: {input: classes.textField}
+                      variant="outlined" 
+                      id="location" 
+                      name="location" 
+                      fullWidth p={0.5}
+                      className={classes.textFieldRoot}
+                      InputProps={{
+                        classes: {input: classes.textField}
                     }}
                     />
                     <Button
@@ -106,7 +115,7 @@ const Home = () => {
                       style={{ color: "white" }}
                       className={classes.locationLabel}
                     >Car Type</InputLabel>
-                    <TextField select variant="outlined" fullWidth className={classes.carTypeRoot} InputProps={{
+                    <TextField select variant="outlined" value={carType} onChange={handleChange} fullWidth className={classes.carTypeRoot} InputProps={{
                       classes: {input: classes.textField}
                     }}>
                     {carTypes.map((option) => {

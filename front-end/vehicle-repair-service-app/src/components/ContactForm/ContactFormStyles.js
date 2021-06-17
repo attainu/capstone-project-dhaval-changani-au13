@@ -38,6 +38,9 @@ const ContactFormStyles = makeStyles((theme) => ({
           boxShadow: '0 0 6px 0 rgba(240, 240, 240, 0.5)'
         },
         marginBottom: theme.spacing(3),
+        [theme.breakpoints.down("sm")]: {
+            width: "20rem"
+        }
     },
     contactTextField: {
         color: "#f0f0f0"

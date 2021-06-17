@@ -4,15 +4,16 @@ import { Grid } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import google from "../../../assets/images/search.svg";
+// import google from "../../../assets/images/search.svg";  
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
-import Icon from "@material-ui/core/Icon";
+// import Icon from "@material-ui/core/Icon";
 import Link from '@material-ui/core/Link';
 import Divider from "../Divider";
 import useStyles from '../AuthStyles';
 import PATHS from "../../../config/webPath";
 import { useHistory } from "react-router-dom";
+import LoginButton from "../GoogleAuthButton/LoginButton";
 
 
 const Signup = () => {
@@ -55,21 +56,7 @@ const Signup = () => {
               >
                 Sign up to EasyRepair
               </Typography>
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.googleButton}
-                fullWidth
-              >
-                <Icon style={{ marginRight: "0.8rem" }}>
-                  <img
-                    src={google}
-                    alt="google"
-                    className={classes.imageIcon}
-                  />
-                </Icon>
-                Sign in with Google
-              </Button>
+              <LoginButton />
               <Divider className={classes.divider} align="center">
                 Or
               </Divider>

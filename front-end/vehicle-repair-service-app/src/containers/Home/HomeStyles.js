@@ -23,7 +23,8 @@ const HomeStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(-5),
     [theme.breakpoints.down("xs")]: {
       marginTop: theme.spacing(5),
-    }
+    },
+    minHeight: "70vh"
   },
   formGrid: {
     width: "rem",

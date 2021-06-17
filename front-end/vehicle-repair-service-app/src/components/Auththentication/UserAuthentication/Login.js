@@ -1,15 +1,17 @@
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
-import Divider from '../Divider';
+// import Icon from "@material-ui/core/Icon";
 import Link from '@material-ui/core/Link';
-
 import TextField from "@material-ui/core/TextField";
+
+import Divider from '../Divider';
 import useStyles from '../AuthStyles';
-import google from '../../../assets/images/search.svg';
+// import google from '../../../assets/images/search.svg';
 import PATHS from "../../../config/webPath";
 import { useHistory } from "react-router-dom";
+import LoginButton from "../GoogleAuthButton/LoginButton";
+
 
 const Login = () => {
 
@@ -33,12 +35,7 @@ const Login = () => {
         <Grid container direction="column" justify="center" alignItems="center" className={classes.authSignin} spacing={0}>
             <form className={classes.userAuthForm}>
                 <Typography variant="h4" align="left" style={{color: "#ffffff"}}>Login to EasyRepair</Typography>
-                <Button variant="contained" color="default" className={classes.googleButton} fullWidth>
-                    <Icon style={{ marginRight: "0.8rem" }}>
-                    <img src={google} alt="google" className={classes.imageIcon} />
-                    </Icon>
-                        Sign in with Google
-                </Button>
+                <LoginButton />
                 <Divider className={classes.divider} align="center">
                     Or
                 </Divider>

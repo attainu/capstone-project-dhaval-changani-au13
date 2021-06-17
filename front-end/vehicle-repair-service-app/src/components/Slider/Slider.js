@@ -15,13 +15,14 @@ import bmw from "../../assets/images/bmw.png";
 
 
 const DomainSlider = () => {
+
   const classes = useStyles();
 
   let settings = {
     dot: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     cssEase: "linear",
   };
@@ -31,10 +32,9 @@ const DomainSlider = () => {
   return (
     <Slider {...settings}>
         {carServices.map((carService,carIndex) => {
-            return <Card className={classes.sliderCardroot}>
+            return <Card className={classes.sliderCardroot} key={carIndex}>
                       <CardMedia
                         className={classes.sliderCardmedia}
-                        key={Math.random().toString(36).substr(2, 9)}
                         image={carService}
                         title={carService}
                       />

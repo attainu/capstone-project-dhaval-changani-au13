@@ -1,5 +1,6 @@
 import { CssBaseline } from '@material-ui/core';
 import NavBar from '../AppNavBar/NavBar';
+import Loader from '../Loader/Loader';
 import useStyles from './LayoutStyles';
 
 const Layout = ({children}) => {
@@ -7,6 +8,7 @@ const Layout = ({children}) => {
 
     return (
         <div className={classes.root}>
+            <Loader />
             <CssBaseline />
             <NavBar />
             {children}
