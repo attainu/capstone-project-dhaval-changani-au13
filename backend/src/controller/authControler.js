@@ -3,13 +3,16 @@ import fetch from "node-fetch";
 import jwt from "jsonwebtoken";
 import userSchema from "../models/schemas/userSchema";
 import { hash } from "../utils/hashPass";
+import { OAuth2Client } from "google-auth-library";
+
+
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
 export const Signup = async (req, res) => {
   try {
     const {
       email,
-      firstName,
-      lastName,
+      name,
       occupation,
       socialLink,
       phone,
@@ -34,8 +37,7 @@ export const Signup = async (req, res) => {
 
     const hashPassword = await hash(password, 10);
     user = new userSchema({
-      firstName,
-      lastName,
+      name,
       email,
       phone,
       occupation,
@@ -134,3 +136,53 @@ export const Profile = async (req, res) => {
     console.log(err.message);
   }
 };
+
+export const googlelogin = (req, res) => {
+  const {tokenId} = req.body;
+  client.verifyIdToken({idToken: tokenId, audience: process.env.CLIENT_ID}).then((resp) => {
+    const {email_verified, name, email} = resp.payload;
+    if(email_verified){
+      userSchema.findOne({email}).exec((err,user) => {
+        if(err){
+          return res.status(400).json({
+            error: "Something went wrong..."
+          })
+        }else{
+          if(user){
+            const token = jwt.sign({ id: user._id }, process.env.jwt_secret, {
+              expiresIn: "1d",
+            });
+            const {_id, name, email } = user;
+
+            res.status(200).json({
+              data: { token, _id, name, email },
+              errors: [],
+              message: "Login successfully!",
+            });
+          }else{
+            let password = email+process.env.jwt_secret
+            let newUser = new userSchema({name, email, password});
+            newUser.save((err,data)=> {
+              if(err){
+                return res.status(400).json({
+                  error: "Something went wrong..."
+                })
+              }
+              const token = jwt.sign({ id: data._id }, process.env.jwt_secret, {
+                expiresIn: "1d",
+              });
+              const {_id, name, email } = newUser;
+  
+              res.status(200).json({
+                data: { token, _id, name, email },
+                errors: [],
+                message: "Login successfully!",
+              });
+            })
+          }
+        }
+      })
+    }
+  })
+  console.log(tokenId)
+}

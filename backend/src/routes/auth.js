@@ -1,6 +1,6 @@
 import express from "express";
 import auth from "../middlewares/auth";
-import { Signup, Login, Profile, VerifyOtp } from "../controller/authControler";
+import { Signup, Login, Profile, VerifyOtp, googlelogin } from "../controller/authControler";
 import {
   validateSignup,
   isRequestValidate,
@@ -15,6 +15,10 @@ router.post("/verify", VerifyOtp);
 
 router.post("/login", validateLogin, isRequestValidate, Login);
 
+router.post("/googlelogin", googlelogin);
+
 router.get("/profile", auth, Profile);
+
+
 
 export default router;
