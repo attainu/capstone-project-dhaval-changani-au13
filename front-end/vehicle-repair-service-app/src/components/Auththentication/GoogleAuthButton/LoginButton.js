@@ -4,6 +4,7 @@ import Icon from "@material-ui/core/Icon";
 import googleConfig from '../../../config/google.json'
 import google from "../../../assets/images/search.svg";
 import { makeStyles } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     googleButton: {
@@ -22,8 +23,15 @@ const LoginButton = () => {
 
     const classes = useStyles();
 
-    const onLogin = () => {
-
+    const onLogin = (response) => {
+        console.log(response);
+        axios({
+            method: "POST",
+            url: "http://localhost:4001/api/googlelogin",
+            data: {tokenId: response.tokenId}
+        }).then(resp => {
+            console.log("Google login successful",resp) 
+        })
     }
 
     return (
@@ -33,6 +41,7 @@ const LoginButton = () => {
             onFailure={onLogin}
             buttonText="Login"
             isSignedIn={true}
+            cookiePolicy={'single_host_origin'}
             render = {(renderProps) => (
                 <Button variant="contained" 
                     color = "default" 

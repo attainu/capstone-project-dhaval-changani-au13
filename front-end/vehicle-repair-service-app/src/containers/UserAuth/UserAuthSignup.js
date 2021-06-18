@@ -12,7 +12,7 @@ const UserAuthSignup = () => {
                 <Grid item xs={12} sm={6} className={classes.authDetailsSec}>
                     <AuthDescription />
                 </Grid>
-                <Grid item xs={12} sm={6} className={classes.authSection} spacing={0}>
+                <Grid item xs={12} sm={6} className={classes.authSection}>
                     <Signup />
                 </Grid>
             </Grid>   
