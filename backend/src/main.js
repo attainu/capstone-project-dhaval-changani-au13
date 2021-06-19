@@ -1,30 +1,23 @@
-import express from "express";
+import express, { json } from "express";
 import cors from "cors";
-import session from "express-session";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+dotenv.config();
 
-require("dotenv").config();
-
-import mongoInit from "./models/configs/mongo";
+import mongoInit from "./models/configs/mongo.js";
 mongoInit();
 const app = express();
 const Port = process.env.PORT || 5001;
 
 app.use(cors());
-app.use(express.json());
-app.use(
-    session({
-        resave: true,
-        saveUninitialized: true,
-        secret: process.env.sessionSecret,
-        cookie: { maxAge: 60000 }, // secure: true this to be put in production
-    })
-);
+app.use(json());
+app.use(cookieParser());
 
 app.get("/health", (req, res) => {
     res.send("Health ok...");
 });
 
-import authRouter from "./routes/auth";
+import authRouter from "./routes/router.js";
 
 app.use("/api", authRouter);
 

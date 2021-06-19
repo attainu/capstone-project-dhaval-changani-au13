@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchems = mongoose.Schema(
+const servicemanLoginSchema = mongoose.Schema(
   {
     
     name: {
@@ -10,20 +10,6 @@ const UserSchems = mongoose.Schema(
     email: {
       type: String,
       required: true,
-      trim: true,
-    },
-    occupation: {
-      type: String,
-      // required: true,
-      trim: true,
-    },
-    socialLink: {
-      type: String,
-      // required: true,
-      trim: true,
-    },
-    refEmail: {
-      type: String,
       trim: true,
     },
     phone: {
@@ -38,4 +24,4 @@ const UserSchems = mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("user", UserSchems);
+export default mongoose.model("serviceman", servicemanLoginSchema);

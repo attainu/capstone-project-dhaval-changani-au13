@@ -1,32 +1,53 @@
 import jwt from "jsonwebtoken";
-import userSchema from "../models/schemas/userSchema";
+import customerSchema from "../models/schemas/customerLogin.js";
+import servicemanSchema from "../models/schemas/servicemanLogin.js";
 
-const auth = async (req, res, next) => {
-  try {
-    const authorization = req.headers.token;
-    if (!authorization) {
-      return res
-        .status(401)
-        .json({ data: {}, error: [], message: "Please login!!" });
-    }
+export const auth_customer = async (req, res, next) => {
+    try {
+        const token = req.cookies.customerToken;
+        if (!token) {
+            return res.status(401).json({ data: {}, error: [], message: "Please login!!" });
+        }
 
-    const token = authorization.split(" ")[1];
-    const decode = jwt.verify(token, process.env.jwt_secret);
-    const userData = await userSchema.findById(decode.id, {
-      password: 0,
-    });
-    if (!userData) {
-      return res.status(400).json({
-        data: {},
-        errors: [],
-        message: "Not a valid user!",
-      });
+        const decode = jwt.verify(token, process.env.jwt_secret);
+        const userData = await customerSchema.findById(decode.id, {
+            password: 0,
+        });
+        if (!userData) {
+            return res.status(400).json({
+                data: {},
+                errors: [],
+                message: "Not a valid user!",
+            });
+        }
+        req.user = userData;
+        next();
+    } catch (error) {
+        console.log(error.message);
     }
-    req.user = userData;
-    next();
-  } catch (error) {
-    console.log(error.message);
-  }
 };
 
-export default auth;
+export const auth_serviceman = async (req, res, next) => {
+    try {
+        const token = req.headers.servicemanToken;
+        if (!token) {
+            return res.status(401).json({ data: {}, error: [], message: "Please login!!" });
+        }
+
+        const decode = jwt.verify(token, process.env.jwt_secret);
+        const userData = await servicemanSchema.findById(decode.id, {
+            password: 0,
+        });
+        if (!userData) {
+            return res.status(400).json({
+                data: {},
+                errors: [],
+                message: "Not a valid user!",
+            });
+        }
+        req.user = userData;
+        next();
+    } catch (error) {
+        console.log(error.message);
+    }
+};
