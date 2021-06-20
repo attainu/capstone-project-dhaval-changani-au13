@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const mongoUri = "mongodb+srv://dhaval_changani:humble1234@cluster0.6nbuz.mongodb.net/myFirstDatabase?authSource=admin&replicaSet=atlas-oej8j8-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true";
+const mongoUri = "mongodb+srv://Abhijeet-Sathua:8797218788Aa@cluster0.ka2fe.mongodb.net/mediaUsers?retryWrites=true&w=majority";
 
 async function mongoInit() {
     try {
