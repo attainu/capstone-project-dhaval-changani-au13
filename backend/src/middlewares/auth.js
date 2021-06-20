@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import customerSchema from "../models/schemas/customerLogin.js";
-import servicemanSchema from "../models/schemas/servicemanLogin.js";
+import customerSchema from "../models/schemas/customer.js";
+import servicemanSchema from "../models/schemas/serviceman.js";
 
 export const auth_customer = async (req, res, next) => {
     try {

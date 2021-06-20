@@ -1,4 +1,6 @@
 import express from "express";
+
+// import passport from "passport";
 import { auth_customer, auth_serviceman } from "../middlewares/auth.js";
 import {
     customerLogin,
@@ -7,19 +9,20 @@ import {
     servicemanLogin,
     servicemanSignup,
     servicemanProfile,
-    googlelogin,
 } from "../controller/authControler.js";
+import "../controller/googleAuth.js";
 
 const router = express.Router();
 
 router.post("/customer-signup", customerSignup);
 router.post("/customer-login", customerLogin);
-router.get("/customer-profile", auth_customer, customerProfile);
 
 router.post("/serviceman-signup", servicemanSignup);
 router.post("/serviceman-login", servicemanLogin);
+
+router.get("/customer-profile", auth_customer, customerProfile);
 router.get("/serviceman-profile", auth_serviceman, servicemanProfile);
 
-router.post("/googlelogin", googlelogin);
+// router.get("/location-save", saveLocation);
 
 export default router;
