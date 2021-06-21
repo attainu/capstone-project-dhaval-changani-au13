@@ -1,9 +1,6 @@
 import { makeStyles } from "@material-ui/core";
-import authImage from "../../assets/images/authImage.png";
 
 const AuthStyles = makeStyles((theme) => ({
-    
-
     authImageContainer: {
         height: "100%"
     },
@@ -13,10 +10,8 @@ const AuthStyles = makeStyles((theme) => ({
     },
     authImageSec: {
         backgroundColor: "#f0f0f0",
-        backgroundImage: `url(${authImage})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundSize: "70% 80%",
         minHeight: "80vh"
     },
     authSignup: {
@@ -107,6 +102,12 @@ const AuthStyles = makeStyles((theme) => ({
         color: "#a0a0a0", 
         marginBottom: "2rem",
         marginTop: "1em"
+    },
+    alertRoot: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     }
 }));
 

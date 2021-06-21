@@ -14,7 +14,7 @@ const MechanicAuthSignup = () => {
                 <Grid item xs={12} md={6} className={classes.authDetailsSec}>
                     <AuthDescription />
                 </Grid>
-                <Grid item xs={12} md={6} className={classes.authSection} spacing={0}>
+                <Grid item xs={12} md={6} className={classes.authSection}>
                    <MechanicSignup />
                 </Grid>
             </Grid>   

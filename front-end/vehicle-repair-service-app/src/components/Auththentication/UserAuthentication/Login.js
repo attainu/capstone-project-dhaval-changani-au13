@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -10,7 +12,13 @@ import useStyles from '../AuthStyles';
 // import google from '../../../assets/images/search.svg';
 import PATHS from "../../../config/webPath";
 import { useHistory } from "react-router-dom";
-import LoginButton from "../GoogleAuthButton/LoginButton";
+// import LoginButton from "../GoogleAuthButton/LoginButton";
+import { useDispatch, useSelector } from "react-redux";
+import customerAuthActions from "../../../redux/actions/customerAuthActions/customerAuthActions";
+import authActions from "../../../redux/actions/authActions/authActions";
+import alertAuthActions from "../../../redux/actions/alertAuthActions/alertAuthActions";
+import Alert from '@material-ui/lab/Alert';
+
 
 
 const Login = () => {
@@ -19,11 +27,63 @@ const Login = () => {
 
     const history = useHistory();
 
+    const [email, setEmail] = useState('');
+
+    const [password, setPassword] = useState('');
+
+    const[isInvalidEmail, setIsInvalidEmail] = useState(false);
+
+    const [isInvalidPassword, setIsInvalidPassword] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const auth = useSelector(state => state.auth)
+
+    const alertMessage = useSelector(state => state.authAlert.authStatus)
+
     const preventDefault = (event) => {
       event.preventDefault()
       history.push(PATHS.USER_SIGNUP)
     };
 
+    const customerLoginFormHandler = (event) => {
+      event.preventDefault();
+      if(email.trim() === ''){
+        setIsInvalidEmail(true)
+        return
+      }
+      if(password === ''){
+        setIsInvalidPassword(true)
+        return
+      }
+
+      const customerData = { email, password } 
+
+      fetch('http://localhost:5001/api/customer-login', {
+        method: 'POST',
+        body: JSON.stringify(customerData),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(resp => {
+        return resp.json();
+      }).then(resData => {
+        if(resData.errors.length){
+          dispatch(alertAuthActions.loginFailureMessage(resData.errors[0].msg))
+        }else{
+          setIsInvalidEmail(false)
+          setIsInvalidPassword(false)
+          dispatch(customerAuthActions.customerAuthLogin());
+          dispatch(authActions.login());
+          dispatch(alertAuthActions.loginSuccessMessage(resData.message))
+          history.push('/')
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    
 
     return (
       <>
@@ -33,19 +93,28 @@ const Login = () => {
           </Link>
       </Typography>
         <Grid container direction="column" justify="center" alignItems="center" className={classes.authSignin} spacing={0}>
-            <form className={classes.userAuthForm}>
+            <form className={classes.userAuthForm} onSubmit={customerLoginFormHandler}>
                 <Typography variant="h4" align="left" style={{color: "#ffffff"}}>Login to EasyRepair</Typography>
-                <LoginButton />
+                {/* <LoginButton /> */}
                 <Divider className={classes.divider} align="center">
                     Or
                 </Divider>
                 <TextField
                 variant="outlined"
                 type="email"
+                name="email"
+                error={isInvalidEmail ? true : false}
                 label="Email"
+                id="email"
                 fullWidth
                 className={classes.authTextField}
+                helperText={isInvalidEmail ? 'Invalid Email' : ''}
                 autoComplete="off"
+                onChange = {(e) => {
+                  setEmail(e.target.value)
+                  setIsInvalidEmail(false)
+                }}
+                value={email}
                 InputProps={{
                   classes: {
                     root: classes.cssOutlinedInput,
@@ -62,8 +131,18 @@ const Login = () => {
                 variant="outlined"
                 type="password"
                 label="Password"
+                error={isInvalidPassword ? true : false}
+                name="password"
                 fullWidth
+                id="password"
                 className={classes.authTextField}
+                helperText={isInvalidPassword ? 'Invalid Password' : ''}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setIsInvalidPassword(false)
+                }}
+
                 InputProps={{
                   classes: {
                     root: classes.cssOutlinedInput,
@@ -85,6 +164,10 @@ const Login = () => {
                 Login
               </Button>
             </form>
+
+            {!auth && alertMessage && <div style={{width: "100%", display:"flex", justifyContent:"center", marginTop: "3rem"}} className={classes.alertRoot}>
+              <Alert severity="error" style={{width: "23rem", textAlign: "center"}}>{alertMessage}</Alert>
+            </div>}
         </Grid>
       </>
     )
