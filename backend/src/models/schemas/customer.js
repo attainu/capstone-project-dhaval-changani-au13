@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const servicesSchema = mongoose.Schema({
+const servicesSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -8,6 +8,9 @@ const servicesSchema = mongoose.Schema({
     description: {
         type: String,
         required: true,
+    },
+    price: {
+        type: Number,
     },
     rating: {
         type: Number,
@@ -36,7 +39,7 @@ const customerSchema = mongoose.Schema(
             type: { type: String },
             coordinates: [],
         },
-        serviceslist: [servicesSchema],
+        serviceslist: { type: [servicesSchema], default: undefined },
     },
     { timestamps: true }
 );

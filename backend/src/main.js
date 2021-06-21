@@ -19,8 +19,8 @@ const Port = process.env.PORT || 5001;
 
 // Middlewere
 app.use(cors());
-app.use(json());
 app.use(cookieParser());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use(passport.initialize());

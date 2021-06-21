@@ -118,7 +118,7 @@ export const servicemanSignup = async (req, res) => {
                 errors: [
                     {
                         value: req.body.email,
-                        msg: "User already exists.",
+                        msg: "Service User already exists.",
                         param: "email",
                         location: "body",
                     },
@@ -181,7 +181,7 @@ export const servicemanLogin = async (req, res) => {
         } else {
             const token = jwt.sign({ id: user._id }, process.env.jwt_secret);
             //setting cookie
-            res.cookie("servicemanToken", servicemanToken);
+            res.cookie("servicemanToken", token);
             console.log("Token set inside cookie.");
             res.status(200).json({
                 data: { token },
@@ -200,6 +200,72 @@ export const servicemanProfile = async (req, res) => {
             data: req.user,
             errors: [],
             message: "Fetched data form user",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const updateLocationService = async (req, res) => {
+    try {
+        const longitude = req.params["longitude"];
+        const latitude = req.params["latitude"];
+        console.log(longitude, latitude);
+
+        const user = await servicemanSchema.findOne({ _id: req.user._id });
+        user.loc.coordinates.push(longitude);
+        user.loc.coordinates.push(latitude);
+
+        await user.save();
+        console.log(user);
+
+        res.status(200).json({
+            data: req.user,
+            errors: [],
+            message: "Location Updated",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const updateLocationCustomer = async (req, res) => {
+    try {
+        const longitude = req.params["longitude"];
+        const latitude = req.params["latitude"];
+        console.log(longitude, latitude);
+
+        const user = await customerSchema.findOne({ _id: req.user._id });
+        user.loc.coordinates.push(longitude);
+        user.loc.coordinates.push(latitude);
+
+        await user.save();
+        console.log(user);
+
+        res.status(200).json({
+            data: req.user,
+            errors: [],
+            message: "Location Updated",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const addService = async (req, res) => {
+    try {
+
+        const user = await servicemanSchema.findOne({ email: req.user.email });
+
+        console.log("servicelist", user.serviceslist)
+
+        user.serviceslist.push(req.body);
+        await user.save();
+
+        res.status(200).json({
+            data: user,
+            errors: [],
+            message: "Service Added",
         });
     } catch (err) {
         console.log(err.message);

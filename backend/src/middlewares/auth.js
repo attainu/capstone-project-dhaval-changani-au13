@@ -29,7 +29,7 @@ export const auth_customer = async (req, res, next) => {
 
 export const auth_serviceman = async (req, res, next) => {
     try {
-        const token = req.headers.servicemanToken;
+        const token = req.cookies.servicemanToken;
         if (!token) {
             return res.status(401).json({ data: {}, error: [], message: "Please login!!" });
         }
