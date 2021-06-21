@@ -181,7 +181,7 @@ export const servicemanLogin = async (req, res) => {
         } else {
             const token = jwt.sign({ id: user._id }, process.env.jwt_secret);
             //setting cookie
-            res.cookie("servicemanToken", token);
+            res.cookie("servicemanToken", token, { httpOnly: true } );
             console.log("Token set inside cookie.");
             res.status(200).json({
                 data: { token },
