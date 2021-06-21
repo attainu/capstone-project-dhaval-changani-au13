@@ -2,9 +2,6 @@ import express, { json } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-// // Passport intialization for google auth
-// import passport from "passport";
-
 // getting secrets from dotenv
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,9 +19,6 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 app.get("/health", (req, res) => {
     res.send("Health ok...");
