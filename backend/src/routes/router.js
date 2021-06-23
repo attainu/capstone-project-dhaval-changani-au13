@@ -29,6 +29,4 @@ router.post("/service-location-save/:longitude/:latitude", auth_serviceman, upda
 
 router.post("/add-service", auth_serviceman, addService);
 
-
-
 export default router;
