@@ -1,36 +1,93 @@
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useSelector } from "react-redux";
-import LogoutButton from "../Auththentication/GoogleAuthButton/LogoutButton";
+import { useDispatch, useSelector } from "react-redux";
+// import LogoutButton from "../Auththentication/GoogleAuthButton/LogoutButton";
 
 import PATHS from "../../config/webPath";
-import { Link } from "react-router-dom";
-// import { useHistory } from "react-router";
+import { Link, useHistory } from "react-router-dom";
+import mechanicAuthActions from "../../redux/actions/mechanicAuthActions/mechanicAuthActions";
+import customerAuthActions from "../../redux/actions/customerAuthActions/customerAuthActions";
+// import { useState } from "react";
+
+
+
 
 
 const NavMenu = (props) => {
   const { anchorEl, menuId, isMenuOpen, handleMenuClose } = props;
 
-  const auth = useSelector(state => state.auth);
 
-  // const history = useHistory();
+  const dispatch = useDispatch();
+
+  const history = useHistory()
+
+  const isCustomerLoggedIn = useSelector(state => state.customerLogin)
+
+  const isMechanicLoggedIn = useSelector(state => state.mechanicLogin)
+
 
   const onProfileClick = (e) => {
-    // handleMenuClose(e);
-    // history.push(PATHS.PROFILE)
+    handleMenuClose(e);
+    history.push(PATHS.MECHANIC_PROFILE)
+  }
+
+  const onLogout = (e) => {
+    handleMenuClose(e);
+    console.log(isCustomerLoggedIn)
+    if(isMechanicLoggedIn){
+      fetch('http://localhost:5001/api/serviceman-logout',{
+        method: 'get',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        console.log(res)
+        return res.json()
+      }).then(resData => {
+        console.log(resData)
+        dispatch(mechanicAuthActions.mechanicAuthLogout());
+        history.push(PATHS.HOME)
+        return
+      }).catch(err => {
+        console.log(err)
+        return
+      })
+    }
+
+    if(isCustomerLoggedIn){
+      fetch('http://localhost:5001/api/customer-logout',{
+        method: 'get',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        console.log(res)
+        return res.json()
+      }).then(resData => {
+        console.log(resData)
+        dispatch(customerAuthActions.customerAuthLogout());
+        history.push(PATHS.HOME)
+        return
+      }).catch(err => {
+        console.log(err)
+        return
+      })
+    }
   }
 
   return (
     <>
-    {auth && (
+    {/* { isCutomerLoggedIn && (
       <LogoutButton 
       isMenuOpen={isMenuOpen} 
       handleMenuClose={handleMenuClose} 
       anchorEl={anchorEl}
       menuId={menuId}
     />
-    )}
-    {!auth && ( <Menu
+    )} */}
+    <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
@@ -39,10 +96,13 @@ const NavMenu = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     > 
-      <MenuItem onClick={onProfileClick}>Profile</MenuItem>
-      <MenuItem component={Link} to={PATHS.USER_LOGIN} onClick={handleMenuClose}>Login</MenuItem> 
+      { (isCustomerLoggedIn || isMechanicLoggedIn) && <MenuItem onClick={onProfileClick}>Profile</MenuItem> }
+      {(!isCustomerLoggedIn && !isMechanicLoggedIn) && <MenuItem component={Link} to={PATHS.USER_LOGIN} onClick={handleMenuClose}>Login</MenuItem> }
+      { (isCustomerLoggedIn || isMechanicLoggedIn) ? (
+        <MenuItem onClick={onLogout}>Logout</MenuItem>
+      ): null}
     </Menu>
-    )}
+    )
   </>
   );
 };

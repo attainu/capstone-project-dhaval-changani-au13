@@ -1,23 +1,21 @@
 import { customerAuthTypes } from "../actionTypes/actionTypes"
-import cookie from "react-cookie";
 
+const initialState = !!localStorage.getItem('customerToken')
 
-const initialState = {
-    customerToken: !!cookie.load('customerToken')
-}
 
 const customerLogin = (state,action) => {
     state = state || initialState
 
     switch(action.type){
-        case customerAuthTypes.customerLogin: {
-            cookie.save('customerToken', state.customerToken, {path: '/'});
+        case customerAuthTypes.customerLogin: 
+        localStorage.setItem('customerToken', action.payload)
             return true
-        }
-        case customerAuthTypes.customerLogout: {
-            cookie.remove('customerToken', {path: '/'})
-            return false;
-        }
+
+        case customerAuthTypes.customerLogout: 
+            localStorage.removeItem('customerToken');
+            localStorage.removeItem('customerProfileInfo');
+            return false
+
         default:
             return state;
     }

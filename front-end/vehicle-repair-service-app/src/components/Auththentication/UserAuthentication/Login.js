@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Link from '@material-ui/core/Link';
 import TextField from "@material-ui/core/TextField";
 
-import Divider from '../Divider';
+// import Divider from '../Divider';
 import useStyles from '../AuthStyles';
 // import google from '../../../assets/images/search.svg';
 import PATHS from "../../../config/webPath";
@@ -15,7 +15,6 @@ import { useHistory } from "react-router-dom";
 // import LoginButton from "../GoogleAuthButton/LoginButton";
 import { useDispatch, useSelector } from "react-redux";
 import customerAuthActions from "../../../redux/actions/customerAuthActions/customerAuthActions";
-import authActions from "../../../redux/actions/authActions/authActions";
 import alertAuthActions from "../../../redux/actions/alertAuthActions/alertAuthActions";
 import Alert from '@material-ui/lab/Alert';
 
@@ -37,9 +36,8 @@ const Login = () => {
 
     const dispatch = useDispatch()
 
-    const auth = useSelector(state => state.auth)
-
     const alertMessage = useSelector(state => state.authAlert.authStatus)
+    const IsCustomerLoggedin = useSelector(state => state.customerLogin)
 
     const preventDefault = (event) => {
       event.preventDefault()
@@ -74,8 +72,7 @@ const Login = () => {
         }else{
           setIsInvalidEmail(false)
           setIsInvalidPassword(false)
-          dispatch(customerAuthActions.customerAuthLogin());
-          dispatch(authActions.login());
+          dispatch(customerAuthActions.customerAuthLogin(resData.data.token));
           dispatch(alertAuthActions.loginSuccessMessage(resData.message))
           history.push('/')
         }
@@ -94,11 +91,11 @@ const Login = () => {
       </Typography>
         <Grid container direction="column" justify="center" alignItems="center" className={classes.authSignin} spacing={0}>
             <form className={classes.userAuthForm} onSubmit={customerLoginFormHandler}>
-                <Typography variant="h4" align="left" style={{color: "#ffffff"}}>Login to EasyRepair</Typography>
+                <Typography variant="h4" align="left" style={{color: "#ffffff", marginBottom: "2rem"}}>Login to EasyRepair</Typography>
                 {/* <LoginButton /> */}
-                <Divider className={classes.divider} align="center">
+                {/* <Divider className={classes.divider} align="center">
                     Or
-                </Divider>
+                </Divider> */}
                 <TextField
                 variant="outlined"
                 type="email"
@@ -165,7 +162,7 @@ const Login = () => {
               </Button>
             </form>
 
-            {!auth && alertMessage && <div style={{width: "100%", display:"flex", justifyContent:"center", marginTop: "3rem"}} className={classes.alertRoot}>
+            {!IsCustomerLoggedin && alertMessage && <div style={{width: "100%", display:"flex", justifyContent:"center", marginTop: "3rem"}} className={classes.alertRoot}>
               <Alert severity="error" style={{width: "23rem", textAlign: "center"}}>{alertMessage}</Alert>
             </div>}
         </Grid>

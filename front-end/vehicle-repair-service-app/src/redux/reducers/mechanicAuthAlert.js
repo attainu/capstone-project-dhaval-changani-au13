@@ -18,6 +18,21 @@ const mechanicAuthAlert = (state,action) => {
                 ...state,
                 mechanicAuthAlert: action.payload
             }
+        case mechanicAuthStatusTypes.mechanicLoginSuccessAlert:
+            return {
+                ...state,
+                mechanicAuthAlert: action.payload
+            }
+        case mechanicAuthStatusTypes.mechanicLoginFailureAlert:
+            return {
+                ...state,
+                mechanicAuthAlert: action.payload
+            }
+        case mechanicAuthStatusTypes.clearMechanicAlertMessage:
+            return {
+                ...state,
+                mechanicAuthAlert: ''
+            }
         default:
             return state;
     }
