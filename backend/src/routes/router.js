@@ -9,6 +9,8 @@ import {
     servicemanProfile,
     updateLocationCustomer,
     updateLocationService,
+    customerLogout,
+    servicemanLogout,
     addService,
 } from "../controller/authControler.js";
 import "../controller/googleAuth.js";
@@ -29,6 +31,7 @@ router.post("/service-location-save/:longitude/:latitude", auth_serviceman, upda
 
 router.post("/add-service", auth_serviceman, addService);
 
-
+router.get("/customer-logout", auth_customer, customerLogout);
+router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
 export default router;

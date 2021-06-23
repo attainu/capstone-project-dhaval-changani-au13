@@ -107,6 +107,18 @@ export const customerProfile = async (req, res) => {
     }
 };
 
+export const customerLogout = async (req, res) => {
+    try {
+        res.clearCookie("customerToken").status(200).json({
+            data: {},
+            errors: [],
+            message: "Loged Out",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
 export const servicemanSignup = async (req, res) => {
     try {
         const { email, name, phone, password } = req.body;
@@ -181,7 +193,7 @@ export const servicemanLogin = async (req, res) => {
         } else {
             const token = jwt.sign({ id: user._id }, process.env.jwt_secret);
             //setting cookie
-            res.cookie("servicemanToken", token, { httpOnly: true } );
+            res.cookie("servicemanToken", token, { httpOnly: true });
             console.log("Token set inside cookie.");
             res.status(200).json({
                 data: { token },
@@ -200,6 +212,18 @@ export const servicemanProfile = async (req, res) => {
             data: req.user,
             errors: [],
             message: "Fetched data form user",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const servicemanLogout = async (req, res) => {
+    try {
+        res.clearCookie("servicemanToken").status(200).json({
+            data: {},
+            errors: [],
+            message: "Loged Out",
         });
     } catch (err) {
         console.log(err.message);
@@ -254,10 +278,9 @@ export const updateLocationCustomer = async (req, res) => {
 
 export const addService = async (req, res) => {
     try {
-
         const user = await servicemanSchema.findOne({ email: req.user.email });
 
-        console.log("servicelist", user.serviceslist)
+        console.log("servicelist", user.serviceslist);
 
         user.serviceslist.push(req.body);
         await user.save();

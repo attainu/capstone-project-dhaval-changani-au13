@@ -1,22 +1,24 @@
 import mongoose from "mongoose";
 
-const servicesSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
+const servicesSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        price: {
+            type: Number,
+        },
+        rating: {
+            type: Number,
+        },
     },
-    description: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-    },
-    rating: {
-        type: Number,
-        required: true,
-    },
-});
+    { timestamps: true }
+);
 
 const customerSchema = mongoose.Schema(
     {
@@ -35,11 +37,13 @@ const customerSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        loc: {
-            type: { type: String },
-            coordinates: [],
+        latitude: {
+            type: Number,
         },
-        serviceslist: { type: [servicesSchema], default: undefined },
+        longitude: {
+            type: Number,
+        },
+        serviceslist: [servicesSchema],
     },
     { timestamps: true }
 );
