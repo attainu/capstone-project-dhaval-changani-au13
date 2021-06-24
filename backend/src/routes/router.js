@@ -31,10 +31,7 @@ router.post("/service-location-save/:longitude/:latitude", auth_serviceman, upda
 
 router.post("/add-service", auth_serviceman, addService);
 
-<<<<<<< HEAD
-=======
 router.get("/customer-logout", auth_customer, customerLogout);
 router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
->>>>>>> 68a825bc8595398506d958e3309cad1faa5f72f8
 export default router;

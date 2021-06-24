@@ -1,21 +1,5 @@
 import mongoose from "mongoose";
 
-<<<<<<< HEAD
-const servicesSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-    },
-    rating: {
-        type: Number,
-=======
 const servicesSchema = new mongoose.Schema(
     {
         name: {
@@ -32,7 +16,6 @@ const servicesSchema = new mongoose.Schema(
         rating: {
             type: Number,
         },
->>>>>>> 68a825bc8595398506d958e3309cad1faa5f72f8
     },
     { timestamps: true }
 );
