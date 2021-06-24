@@ -1,22 +1,25 @@
-const request = require("postman-request");
-const dotenv = require("dotenv");
-dotenv.config();
+import request from "postman-request";
+import { config } from "dotenv";
+config();
 
-export const geocode = (address, callback) => {
+const geocode = (longitude, latitude, callback) => {
     const url =
         "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-        encodeURIComponent(address) +
+        longitude +
+        "," +
+        latitude +
         ".json?access_token=" +
-        process.env.mapbox_api_key +
+        process.env.MAPBOX_API +
         "&limit=1";
 
-    request({ url, json: true }, (error, { body }) => {
+    request({ url, json: true }, (error, response) => {
         if (error) {
-            callback("Not abel to fetch the data", undefined);
-        } else if (body.features === 0) {
-            callback("Not able to find the loacaiton, search again", undefined);
+            callback(error, undefined);
         } else {
-            callback(undefined, { body });
+            callback(undefined, response.body);
+            return response.body;
         }
     });
 };
+
+export default geocode;

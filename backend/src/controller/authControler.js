@@ -234,17 +234,17 @@ export const updateLocationService = async (req, res) => {
     try {
         const longitude = req.params["longitude"];
         const latitude = req.params["latitude"];
-        console.log(longitude, latitude);
 
         const user = await servicemanSchema.findOne({ _id: req.user._id });
-        user.loc.coordinates.push(longitude);
-        user.loc.coordinates.push(latitude);
+        user.location.coordinates = [];
+        user.location.coordinates.push(longitude);
+        user.location.coordinates.push(latitude);
 
         await user.save();
         console.log(user);
 
         res.status(200).json({
-            data: req.user,
+            data: user,
             errors: [],
             message: "Location Updated",
         });
@@ -257,17 +257,17 @@ export const updateLocationCustomer = async (req, res) => {
     try {
         const longitude = req.params["longitude"];
         const latitude = req.params["latitude"];
-        console.log(longitude, latitude);
 
         const user = await customerSchema.findOne({ _id: req.user._id });
-        user.loc.coordinates.push(longitude);
-        user.loc.coordinates.push(latitude);
+        user.location.coordinates = [];
+        user.location.coordinates.push(longitude);
+        user.location.coordinates.push(latitude);
 
         await user.save();
         console.log(user);
 
         res.status(200).json({
-            data: req.user,
+            data: user,
             errors: [],
             message: "Location Updated",
         });
@@ -289,6 +289,22 @@ export const addService = async (req, res) => {
             data: user,
             errors: [],
             message: "Service Added",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const askforservice = async (req, res) => {
+    try {
+        const allServiceman = await servicemanSchema.find({});
+
+        console.log("servicelist", allServiceman);
+
+        res.status(200).json({
+            data: allServiceman,
+            errors: [],
+            message: "Serviceman List",
         });
     } catch (err) {
         console.log(err.message);
