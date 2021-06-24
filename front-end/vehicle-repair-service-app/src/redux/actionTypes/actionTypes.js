@@ -8,11 +8,6 @@ export const modalTypes = {
     close: 'modal/CLOSE_MODAL'
 }
 
-export const authTypes = {
-    login: "auth/USER_LOGIN",
-    logout: "auth/USER_LOGOUT",
-};
-
 export const loginPathTypes = {
     googleAccess: "auth/GOOGLE_LOGIN",
     customAccess: "auth/CUSTOM_LOGIN"
@@ -31,6 +26,11 @@ export const mechanicRegisterTypes = {
 export const customerAuthTypes = {
     customerLogin: "customerAuth/LOG_IN",
     customerLogout: "customerAuth/CUSTOMER_LOGOUT"
+}
+
+export const mechanicAuthTypes = {
+    mechanicLogin: "mechanicAuth/LOG_IN",
+    mechanicLogout: "mechanicAuth/LoG_OUT"
 }
 
 export const customerAuthStatusTypes = {
@@ -57,4 +57,14 @@ export const mechanicAuthStatusTypes = {
     mechanicLogoutFailureAlert: "mechanic/LOGOUT_FAILURE_ALERT",
 
     clearMechanicAlertMessage: "mechanic/CLEAR_ALERT"
+}
+
+export const mechanicProfileTypes = {
+    getMechanicInfo: 'mechanic/GET_PROFILE_INFO',
+    removeMechanicProfileInfo: 'mechanic/REMOVE_PROFILE_INFO'
+}
+
+export const customerProfileTypes = {
+    getCustomerInfo: 'customer/GET_PROFILE_INFO',
+    removeCustomerProfileInfo: 'customer/REMOVE_PROFILE_INFO'
 }

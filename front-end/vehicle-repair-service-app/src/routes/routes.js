@@ -13,7 +13,7 @@ const routes = [
     {exact: true, path: PATHS.MECHANIC_LOGIN, component: MechanicAuthLogin},
     {exact: true, path: PATHS.MECHANIC_SIGNUP, component: MechanicAuthSignup},
     {exact: true, path: PATHS.USER_LOCATION, component: UserNavigation},
-
+    
 ]
 
 

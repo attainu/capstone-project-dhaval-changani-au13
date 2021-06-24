@@ -1,7 +1,7 @@
 import { customerAuthTypes } from "../../actionTypes/actionTypes";
 
 const customerAuthActions = {
-    customerAuthLogin: () => ({ type: customerAuthTypes.customerLogin }),
+    customerAuthLogin: (payload) => ({ type: customerAuthTypes.customerLogin, payload }),
     customerAuthLogout: () => ({ type: customerAuthTypes.customerLogout })
 }
 

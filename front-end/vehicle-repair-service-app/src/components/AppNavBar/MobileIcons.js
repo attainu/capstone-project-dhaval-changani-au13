@@ -4,6 +4,8 @@ import IconButton from "@material-ui/core/IconButton";
 
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import PATHS from "../../config/webPath";
 
 const MobileIcons = (props) => {
   const {
@@ -13,6 +15,13 @@ const MobileIcons = (props) => {
     handleMobileMenuClose,
     handleProfileMenuOpen,
   } = props;
+
+  const history = useHistory();
+
+  const goToMechanicAuthPage = (e) => {
+    e.preventDefault();
+    history.push(PATHS.MECHANIC_LOGIN)
+  }
 
   return (
     <Menu
@@ -46,7 +55,7 @@ const MobileIcons = (props) => {
         </Link>
       </MenuItem>
       <MenuItem>
-        <Link href="#" color="inherit" style={{ textDecoration: "none" }}>
+        <Link href="#" color="inherit" style={{ textDecoration: "none" }} onClick={goToMechanicAuthPage}>
           Repair with Us
         </Link>
       </MenuItem>
