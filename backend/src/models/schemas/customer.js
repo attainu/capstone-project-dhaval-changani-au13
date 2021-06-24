@@ -37,11 +37,14 @@ const customerSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        latitude: {
-            type: Number,
-        },
-        longitude: {
-            type: Number,
+        location: {
+            type: {
+                type: String,
+                enum: ["Point"],
+            },
+            coordinates: {
+                type: [Number],
+            },
         },
         serviceslist: [servicesSchema],
     },

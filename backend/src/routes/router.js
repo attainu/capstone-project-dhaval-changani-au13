@@ -12,8 +12,8 @@ import {
     customerLogout,
     servicemanLogout,
     addService,
+    askforservice,
 } from "../controller/authControler.js";
-import "../controller/googleAuth.js";
 
 const router = express.Router();
 
@@ -28,10 +28,14 @@ router.get("/serviceman-profile", auth_serviceman, servicemanProfile);
 
 router.post("/customer-location-save/:longitude/:latitude", auth_customer, updateLocationCustomer);
 router.post("/service-location-save/:longitude/:latitude", auth_serviceman, updateLocationService);
-
 router.post("/add-service", auth_serviceman, addService);
 
 router.get("/customer-logout", auth_customer, customerLogout);
 router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
+<<<<<<< HEAD
+=======
+router.get("/askforservice", auth_customer, askforservice);
+
+>>>>>>> 41e5df878a1871e4f8872dd5ccac0b7932c7f54d
 export default router;

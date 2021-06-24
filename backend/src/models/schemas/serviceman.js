@@ -40,11 +40,14 @@ const servicemanSchema = mongoose.Schema(
         latitude: {
             type: Number,
         },
-        longitude: {
-            type: Number,
-        },
-        averagePrice: {
-            type: Number,
+        location: {
+            type: {
+                type: String,
+                enum: ["Point"],
+            },
+            coordinates: {
+                type: [Number],
+            },
         },
         serviceslist: [servicesSchema],
     },
