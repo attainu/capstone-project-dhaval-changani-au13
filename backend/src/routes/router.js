@@ -13,6 +13,8 @@ import {
     servicemanLogout,
     addService,
     askforservice,
+    selectServiceman,
+    selectService,
 } from "../controller/authControler.js";
 
 const router = express.Router();
@@ -34,5 +36,7 @@ router.get("/customer-logout", auth_customer, customerLogout);
 router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
 router.get("/askforservice", auth_customer, askforservice);
+router.get("/select-serviceman/:servicemanID", auth_customer, selectServiceman);
+router.get("/select-service/:servicemanID/:serviceID", auth_customer, selectService);
 
 export default router;
