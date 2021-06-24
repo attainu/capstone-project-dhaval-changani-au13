@@ -33,9 +33,6 @@ router.post("/add-service", auth_serviceman, addService);
 router.get("/customer-logout", auth_customer, customerLogout);
 router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
-<<<<<<< HEAD
-=======
 router.get("/askforservice", auth_customer, askforservice);
 
->>>>>>> 41e5df878a1871e4f8872dd5ccac0b7932c7f54d
 export default router;
