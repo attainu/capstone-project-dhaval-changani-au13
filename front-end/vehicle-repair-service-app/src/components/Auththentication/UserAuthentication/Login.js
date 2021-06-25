@@ -60,7 +60,7 @@ const Login = () => {
 
       dispatch(loaderActions.start())
 
-      fetch('http://localhost:5001/api/customer-login', {
+      fetch('https://service-anywhere.herokuapp.com/api/customer-login', {
         method: 'POST',
         body: JSON.stringify(customerData),
         credentials: 'include',

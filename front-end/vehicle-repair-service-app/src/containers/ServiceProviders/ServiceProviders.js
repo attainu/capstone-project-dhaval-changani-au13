@@ -68,7 +68,7 @@ const ServiceProviders = () => {
     const nearByServiceProviders = useSelector(state => state.nearByServiceProviders.serviceProviders);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/askforservice', {
+        fetch('https://service-anywhere.herokuapp.com/api/askforservice', {
             method: 'GET',
             credentials: 'include',
         }).then(response => {

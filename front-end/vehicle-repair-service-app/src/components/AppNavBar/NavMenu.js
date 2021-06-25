@@ -41,7 +41,7 @@ const NavMenu = (props) => {
     handleMenuClose(e);
     console.log(isCustomerLoggedIn)
     if(isMechanicLoggedIn){
-      fetch('http://localhost:5001/api/serviceman-logout',{
+      fetch('https://service-anywhere.herokuapp.com/api/serviceman-logout',{
         method: 'get',
         credentials: 'include',
         headers: {
@@ -62,7 +62,7 @@ const NavMenu = (props) => {
     }
 
     if(isCustomerLoggedIn){
-      fetch('http://localhost:5001/api/customer-logout',{
+      fetch('https://service-anywhere.herokuapp.com/api/customer-logout',{
         method: 'get',
         credentials: 'include',
         headers: {

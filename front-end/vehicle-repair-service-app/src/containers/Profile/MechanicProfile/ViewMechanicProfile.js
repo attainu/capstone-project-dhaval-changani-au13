@@ -35,7 +35,7 @@ const ViewMechanicProfile = () => {
 
         dispatch(loaderActions.start())
 
-        const path = `http://localhost:5001/api/select-serviceman/${match.params.id}`;
+        const path = `https://service-anywhere.herokuapp.com/api/select-serviceman/${match.params.id}`;
 
             return fetch(path, {
                 method: 'GET',

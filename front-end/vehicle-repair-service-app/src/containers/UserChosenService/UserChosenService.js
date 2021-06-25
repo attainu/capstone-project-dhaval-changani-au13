@@ -66,7 +66,7 @@ const UserChosenService = () => {
     const match = useRouteMatch();
 
     useEffect(() => {
-        const path = `http://localhost:5001/api/${match.params.mechanicId}/${match.params.serviceId}`
+        const path = `https://service-anywhere.herokuapp.com/api/${match.params.mechanicId}/${match.params.serviceId}`
 
         return fetch(path, {
             method: 'GET',

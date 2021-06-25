@@ -75,7 +75,7 @@ const Signup = () => {
 
       const user = { email, name, phone, password }
  
-      fetch("http://localhost:5001/api/customer-signup", {
+      fetch("https://service-anywhere.herokuapp.com/api/customer-signup", {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
