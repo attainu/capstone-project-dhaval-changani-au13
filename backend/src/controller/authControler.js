@@ -310,3 +310,62 @@ export const askforservice = async (req, res) => {
         console.log(err.message);
     }
 };
+
+export const selectServiceman = async (req, res) => {
+    try {
+        const servicemanID = req.params["servicemanID"];
+        const serviceman = await servicemanSchema.find({ _id: servicemanID });
+
+        console.log("servicelist", serviceman);
+
+        res.status(200).json({
+            data: serviceman,
+            errors: [],
+            message: "Serviceman",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const selectService = async (req, res) => {
+    try {
+        const servicemanID = req.params["servicemanID"];
+        const serviceID = req.params["serviceID"];
+        const serviceman = await servicemanSchema.findOne({ _id: servicemanID });
+
+        const service = serviceman.serviceslist.id(serviceID);
+
+        console.log("servicelist", service);
+
+        res.status(200).json({
+            data: service,
+            errors: [],
+            message: "Serviceman",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
+
+export const updateRating = async (req, res) => {
+    try {
+        const servicemanID = req.params["servicemanID"];
+        const serviceID = req.params["serviceID"];
+        const rating = req.params["rating"];
+        const serviceman = await servicemanSchema.findOne({ _id: servicemanID });
+        const service = serviceman.serviceslist.id(serviceID);
+
+        service.rating = rating;
+        await serviceman.save();
+        console.log("servicelist", service);
+
+        res.status(200).json({
+            data: service,
+            errors: [],
+            message: "Serviceman",
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+};
