@@ -4,7 +4,7 @@ import UserAuthLogin from "../containers/UserAuth/UserAuthLogin";
 import UserAuthSignup from "../containers/UserAuth/UserAuthSignup";
 import MechanicAuthSignup from '../containers/MechanicAuth/MechanicAuthSignup';
 import MechanicAuthLogin from "../containers/MechanicAuth/MechanicAuthLogin";
-import UserNavigation from "../containers/Navigation/UserNavigation";
+
 
 const routes = [
     {exact: true, path: PATHS.HOME, component: Home},
@@ -12,8 +12,6 @@ const routes = [
     {exact: true, path: PATHS.USER_SIGNUP, component: UserAuthSignup},
     {exact: true, path: PATHS.MECHANIC_LOGIN, component: MechanicAuthLogin},
     {exact: true, path: PATHS.MECHANIC_SIGNUP, component: MechanicAuthSignup},
-    {exact: true, path: PATHS.USER_LOCATION, component: UserNavigation},
-    
 ]
 
 

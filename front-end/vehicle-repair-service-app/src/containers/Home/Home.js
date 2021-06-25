@@ -5,7 +5,6 @@ import { Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import { CardContent } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
-// import IconButton from "@material-ui/core/IconButton";
 import GpsFixedIcon from "@material-ui/icons/GpsFixed";
 import { TextField } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
@@ -14,7 +13,10 @@ import ServiceDesc from "../../components/ServiceDescription/ServiceDesc";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
 import { useState } from "react";
-// import GoogleMaps from "./GoogleMaps";
+import { useDispatch, useSelector } from "react-redux";
+import PATHS from "../../config/webPath";
+import { useHistory } from "react-router-dom";
+import serviceProvidersActions from "../../redux/actions/serviceProvidersActions/serviceProvidersActions";
 
 const carTypes = [
   {
@@ -52,8 +54,22 @@ const Home = () => {
 
   const [carType, setCarType] = useState('');
 
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const isCustomerLoggedin = useSelector(state => state.customerLogin)
+
   const handleChange = (event) => {
     setCarType(event.target.value);
+  }
+
+  const askForService = () => {
+    if(!isCustomerLoggedin){
+      history.push(PATHS.USER_LOGIN)
+    }else{
+      history.push(PATHS.SERVICE_PROVIDERS)
+    }
   }
   
   return (
@@ -86,7 +102,7 @@ const Home = () => {
                   </Typography>
                   <br />
                   <form className={classes.formRoot}>
-                    <InputLabel
+                    {/* <InputLabel
                       style={{ color: "white" }}
                       className={classes.locationLabel}
                     >
@@ -137,10 +153,10 @@ const Home = () => {
                     InputProps={{
                       classes: {input: classes.textField}
                     }}
-                    />
+                    /> */}
                     <Button
                       variant="contained"
-                      type="submit"
+                      onClick={askForService}
                       color="default"
                       className={classes.submitButton}
                       fullWidth

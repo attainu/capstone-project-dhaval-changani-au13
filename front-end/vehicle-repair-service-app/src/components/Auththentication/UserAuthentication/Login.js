@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import customerAuthActions from "../../../redux/actions/customerAuthActions/customerAuthActions";
 import alertAuthActions from "../../../redux/actions/alertAuthActions/alertAuthActions";
 import Alert from '@material-ui/lab/Alert';
+import loaderActions from "../../../redux/actions/loaderActions/loaderActions";
 
 
 
@@ -57,6 +58,8 @@ const Login = () => {
 
       const customerData = { email, password } 
 
+      dispatch(loaderActions.start())
+
       fetch('http://localhost:5001/api/customer-login', {
         method: 'POST',
         body: JSON.stringify(customerData),
@@ -69,11 +72,13 @@ const Login = () => {
       }).then(resData => {
         if(resData.errors.length){
           dispatch(alertAuthActions.loginFailureMessage(resData.errors[0].msg))
+          dispatch(loaderActions.stop())
         }else{
           setIsInvalidEmail(false)
           setIsInvalidPassword(false)
           dispatch(customerAuthActions.customerAuthLogin(resData.data.token));
-          dispatch(alertAuthActions.loginSuccessMessage(resData.message))
+          dispatch(alertAuthActions.clearAlertMessage())
+          dispatch(loaderActions.stop())
           history.push('/')
         }
       }).catch(err => {

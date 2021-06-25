@@ -72,6 +72,10 @@ uploadFileButton: {
     marginBottom: "1em",
     padding: "0.4em",
     fontSize: "0.9em"
+},
+
+mechanicRating: {
+    color: "#f0f0f0",
 }
 
 

@@ -28,7 +28,13 @@ const NavMenu = (props) => {
 
   const onProfileClick = (e) => {
     handleMenuClose(e);
-    history.push(PATHS.MECHANIC_PROFILE)
+    if(isMechanicLoggedIn && !isCustomerLoggedIn){
+      history.push(PATHS.MECHANIC_PROFILE)
+    }else if(isCustomerLoggedIn && !isMechanicLoggedIn){
+      history.push(PATHS.CUSTOMER_PROFILE)
+    }else{
+      return
+    }
   }
 
   const onLogout = (e) => {
@@ -42,7 +48,7 @@ const NavMenu = (props) => {
           'Content-Type': 'application/json'
         }
       }).then(res => {
-        console.log(res)
+        console.log(res);
         return res.json()
       }).then(resData => {
         console.log(resData)
@@ -102,7 +108,6 @@ const NavMenu = (props) => {
         <MenuItem onClick={onLogout}>Logout</MenuItem>
       ): null}
     </Menu>
-    )
   </>
   );
 };

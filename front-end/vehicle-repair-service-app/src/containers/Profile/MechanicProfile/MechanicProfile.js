@@ -7,9 +7,11 @@ import avatar from '../../../assets/images/user.png'
 import { Typography } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Rating from '@material-ui/lab/Rating';
 
-import ProfileDataTable from '../../../components/ProfileDataTabel/ProfileDataTable'
-
+import MechanicProfileTable from "../../../components/ProfileDataTabel/MechanicProfileTable";
 
 import { useDispatch, useSelector } from "react-redux";
 import mechanicProfileActions from "../../../redux/actions/mechanicProfileActions/mechanicProfileActions";
@@ -23,6 +25,10 @@ const MechanicProfile = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+
+    const [serviceList, setServiceList] = useState([]);
+
+    const [serviceAdded, setServiceAdded] = useState(false)
 
   
 
@@ -42,11 +48,12 @@ const MechanicProfile = () => {
                 return res.json()
             }).then(resData => {
                 dispatch(mechanicProfileActions.getMechanicInfo(resData.data))
+                setServiceList([...resData.data.serviceslist])
             }).catch(err => {
                 console.log(err)
             })
         }
-    },[mechanicAuthLogin, dispatch])
+    },[mechanicAuthLogin, dispatch, serviceAdded])
 
     const serviceDetailsHandler = (event) => {
         event.preventDefault();
@@ -64,10 +71,13 @@ const MechanicProfile = () => {
             console.log()
             return response.json()
         }).then(respData => {
-            console.log(respData)
+            setServiceAdded(true)
         }).catch(err => {
             console.log(err);
         })
+        setName('');
+        setDescription('');
+        setPrice('');
     }
 
     return (
@@ -123,7 +133,7 @@ const MechanicProfile = () => {
                                           },
                                     }}
                                 />
-                                <TextField id="outlined-basic" className={classes.profileFormTextField} 
+                                <TextField id="price" className={classes.profileFormTextField} 
                                     fullWidth 
                                     label="Price" 
                                     name="price"
@@ -144,7 +154,7 @@ const MechanicProfile = () => {
                                         },
                                     }}
                                 />
-                                <TextField id="outlined-basic" className={classes.profileFormTextField} 
+                                <TextField id="desc" className={classes.profileFormTextField} 
                                     fullWidth 
                                     label="Service Description" 
                                     name="description"
@@ -183,7 +193,23 @@ const MechanicProfile = () => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} md={9} className={classes.profileData}>
-                   <ProfileDataTable />
+                   <MechanicProfileTable>
+                       {serviceList.map((service,index) => {
+                           console.log(serviceList)
+                           return (
+                            <TableRow key={index} className={classes.tableRow}>
+                                <TableCell component="th" scope="row" style={{color: "#a0a0a0"}}>
+                                {service.name}
+                                </TableCell>
+                                <TableCell align="left" style={{color: "#a0a0a0"}}>{service.description}</TableCell>
+                                <TableCell align="left" style={{color: "#a0a0a0"}}>{service.price}</TableCell>
+                                <TableCell align="left" style={{color: "#a0a0a0"}}>
+                                    <Rating key={index} name="read-only" readOnly className={classes.mechanicRating} value={service.rating} />
+                                </TableCell>
+                            </TableRow>
+                           )
+                       })}
+                   </MechanicProfileTable>
                 </Grid>
             </Grid>
         </Container>
