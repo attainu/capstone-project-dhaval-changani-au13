@@ -20,11 +20,14 @@ import {
 
 const router = express.Router();
 
-router.post("/customer-signup", customerSignup);
+router.post("/serviceman-login", servicemanLogin);
 router.post("/customer-login", customerLogin);
 
 router.post("/serviceman-signup", servicemanSignup);
-router.post("/serviceman-login", servicemanLogin);
+router.post("/customer-signup", customerSignup);
+
+router.get("/customer-logout", auth_customer, customerLogout);
+router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
 router.get("/customer-profile", auth_customer, customerProfile);
 router.get("/serviceman-profile", auth_serviceman, servicemanProfile);
@@ -32,9 +35,6 @@ router.get("/serviceman-profile", auth_serviceman, servicemanProfile);
 router.post("/customer-location-save/:longitude/:latitude", auth_customer, updateLocationCustomer);
 router.post("/service-location-save/:longitude/:latitude", auth_serviceman, updateLocationService);
 router.post("/add-service", auth_serviceman, addService);
-
-router.get("/customer-logout", auth_customer, customerLogout);
-router.get("/serviceman-logout", auth_serviceman, servicemanLogout);
 
 router.get("/askforservice", auth_customer, askforservice);
 router.get("/select-serviceman/:servicemanID", auth_customer, selectServiceman);
