@@ -58,7 +58,7 @@ const MechanicSignup = () => {
 
       const mechanic = { email, name, phone, password }
 
-      fetch("http://localhost:5001/api/serviceman-signup", {
+      fetch("https://service-anywhere.herokuapp.com/api/serviceman-signup", {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',

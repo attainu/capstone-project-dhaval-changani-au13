@@ -68,3 +68,17 @@ export const customerProfileTypes = {
     getCustomerInfo: 'customer/GET_PROFILE_INFO',
     removeCustomerProfileInfo: 'customer/REMOVE_PROFILE_INFO'
 }
+
+export const nearbyServiceProvidersListTypes = {
+    getServiceProvidersList: 'customer/GET_SERVICE_PROVIDERS',
+    removeServiceProvidersList: 'customer/REMOVE_SERVICE_PROVIDERS'
+}
+
+export const mechanicProfileDetailsTypes = {
+    mechaniProfileDetails: 'mechanic/PROFILE_DETAILS',
+    mechanicServicesList: 'mechanic/SERVICES_LIST'
+}
+
+export const individualServiceDetailsTypes = {
+    getServiceDetails: 'mechanic/SERVICE_DETAILS'
+}

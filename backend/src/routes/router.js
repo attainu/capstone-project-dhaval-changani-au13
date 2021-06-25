@@ -42,3 +42,4 @@ router.get("/select-service/:servicemanID/:serviceID", auth_customer, selectServ
 router.post("/update-rating/:servicemanID/:serviceID/:rating", auth_customer, updateRating);
 
 export default router;
+

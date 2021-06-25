@@ -28,21 +28,27 @@ const NavMenu = (props) => {
 
   const onProfileClick = (e) => {
     handleMenuClose(e);
-    history.push(PATHS.MECHANIC_PROFILE)
+    if(isMechanicLoggedIn && !isCustomerLoggedIn){
+      history.push(PATHS.MECHANIC_PROFILE)
+    }else if(isCustomerLoggedIn && !isMechanicLoggedIn){
+      history.push(PATHS.CUSTOMER_PROFILE)
+    }else{
+      return
+    }
   }
 
   const onLogout = (e) => {
     handleMenuClose(e);
     console.log(isCustomerLoggedIn)
     if(isMechanicLoggedIn){
-      fetch('http://localhost:5001/api/serviceman-logout',{
+      fetch('https://service-anywhere.herokuapp.com/api/serviceman-logout',{
         method: 'get',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(res => {
-        console.log(res)
+        console.log(res);
         return res.json()
       }).then(resData => {
         console.log(resData)
@@ -56,7 +62,7 @@ const NavMenu = (props) => {
     }
 
     if(isCustomerLoggedIn){
-      fetch('http://localhost:5001/api/customer-logout',{
+      fetch('https://service-anywhere.herokuapp.com/api/customer-logout',{
         method: 'get',
         credentials: 'include',
         headers: {
@@ -102,7 +108,6 @@ const NavMenu = (props) => {
         <MenuItem onClick={onLogout}>Logout</MenuItem>
       ): null}
     </Menu>
-    )
   </>
   );
 };
